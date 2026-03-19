@@ -17,6 +17,9 @@ add_filter('tr_theme_options_name', function() {
 // Load file Tối ưu hoá tốc độ (Performance Configs)
 require get_template_directory() . '/inc/performance.php';
 
+// Khởi tạo Custom Post Types (Trang 2: Tìm Điểm bán Pharmacy)
+require get_template_directory() . '/inc/cpt-pharmacy.php';
+
 if (!function_exists('livespo_setup')):
   function livespo_setup()
   {
@@ -58,5 +61,19 @@ function livespo_scripts() {
 
 	// Main JS (Tự động load cuối cùng)
 	wp_enqueue_script( 'livespo-main', get_template_directory_uri() . '/js/main.js', array('gsap', 'gsap-scrolltrigger', 'lenis', 'swiper'), $js_version, true );
+
+	// JS Chuyên biệt (Page-specific Scripts)
+	// Tránh load Google Maps ở trang khác. Chỉ nạp khi vào CPT Mạng lưới điểm bán
+	if ( is_post_type_archive('pharmacy') || is_singular('pharmacy') ) {
+		$map_js_version = file_exists(get_template_directory() . '/js/pharmacy-map.js') ? filemtime(get_template_directory() . '/js/pharmacy-map.js') : $theme_version;
+		wp_enqueue_script( 'livespo-pharmacy-map', get_template_directory_uri() . '/js/pharmacy-map.js', array(), $map_js_version, true );
+		
+		// Truyền biến PHP sang JS một cách bảo mật
+		wp_localize_script( 'livespo-pharmacy-map', 'livespoMapData', array(
+			// Lấy API Key từ Theme Options của TypeRocket. (Bạn có thể thêm 1 ô Google Map API Key vào theme-options.php nếu muốn).
+			'apiKey'  => function_exists('tr_options_field') ? tr_options_field('livespo_options', 'Google Maps API Key') : 'NHAP_API_KEY_MAP_VAO_DAY',
+			'ajaxUrl' => admin_url('admin-ajax.php')
+		));
+	}
 }
 add_action( 'wp_enqueue_scripts', 'livespo_scripts' );

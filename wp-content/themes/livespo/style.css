@@ -3,10 +3,53 @@ Theme Name: livespo
 Theme URI: 
 Author: Kelvin
 Author URI: 
-Description: ...
-Version: 1.0
+Description: Phục vụ 3 ngôn ngữ và Layout tĩnh hoàn toàn.
+Version: 1.0.1
 License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: 
 Text Domain: livespo
 */
+
+/* ==========================================================================
+   1. CSS VARIABLES: ĐA NGÔN NGỮ (LANGUAGE ADAPTATION)
+   ========================================================================== */
+
+/* 1.1 Mặc định & Tiếng Việt (/vi) - Warm Bone Palette */
+:root, html[lang*="vi"] {
+    --clr-bg-main: #F4EBE1; /* Màu Warm Bone giả lập theo Specs */
+    --clr-primary: #8C2A2A; 
+    --clr-text: #222222;
+
+    /* Nền tảng cấu trúc (Component System) chung */
+    --font-main: 'Inter', sans-serif;
+    --spacing-md: 16px;
+    --radius-btn: 8px;
+}
+
+/* 1.2 Phiên bản Tiếng Anh (/en) - Deep Ink & Science Blue Palette */
+html[lang*="en"] {
+    /* Đổi màu toàn cục, giữ nguyên hệ thống spacing/radius */
+    --clr-bg-main: #0E1F14; /* Deep Ink */
+    --clr-primary: #1A5FA8; /* Science Blue */
+    --clr-text: #F1F1F1;
+}
+
+/* ==========================================================================
+   2. GLOBAL STYLES (Chỉ dùng CSS Variables)
+   ========================================================================== */
+body {
+    background-color: var(--clr-bg-main);
+    color: var(--clr-text);
+    font-family: var(--font-main);
+    
+    /* Hiệu ứng chuyển màu mượt khi switch ngôn ngữ (nếu load Ajax) */
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* VD một component nút bấm kế thừa Variables */
+.btn-primary {
+    background-color: var(--clr-primary);
+    color: #fff;
+    border-radius: var(--radius-btn);
+    padding: var(--spacing-md);
+    border: none;
+}
