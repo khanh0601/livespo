@@ -1,0 +1,5 @@
+# Block PHP execution in uploads directory
+<Files *.php>
+Order Deny,Allow
+Deny from all
+</Files>
