@@ -20,6 +20,9 @@ require get_template_directory() . '/inc/performance.php';
 // Khởi tạo Custom Post Types (Trang 2: Tìm Điểm bán Pharmacy)
 require get_template_directory() . '/inc/cpt-pharmacy.php';
 
+// Trang Import Điểm bán bằng file CSV
+require get_template_directory() . '/inc/admin-import.php';
+
 if (!function_exists('livespo_setup')):
   function livespo_setup()
   {
