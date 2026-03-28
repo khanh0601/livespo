@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+define('DB_NAME', 'livespo');
 
 /** Database username */
-define('DB_USER', 'username_here');
+define('DB_USER', 'root');
 
 /** Database password */
-define('DB_PASSWORD', 'password_here');
+define('DB_PASSWORD', 'khanhkhanh123');
 
 /** Database hostname */
 define('DB_HOST', 'localhost');
@@ -85,8 +85,10 @@ $table_prefix = 'wspo_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);
+@ini_set('display_errors', 0);
 
 /* Add any custom values between this line and the "stop editing" line. */
 
